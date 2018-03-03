@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "731386258417",
+    "firebase_url": "https://fypapp-f1f47.firebaseio.com",
+    "project_id": "fypapp-f1f47",
+    "storage_bucket": "fypapp-f1f47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731386258417:android:deae641fc70279a8",
+        "android_client_info": {
+          "package_name": "com.tim.fypapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731386258417-6je4ntapq3lvdhq0kpg73m0abqkd0uun.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tim.fypapp",
+            "certificate_hash": "d26d728e6e07120db53cec7fe6624c6f05f248c7"
+          }
+        },
+        {
+          "client_id": "731386258417-l0skvl6am58qlb13ejgu2rj7tc70jdn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Gjaar5IaTaf4A4gOHr_4nsZkYuSRmaQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731386258417-l0skvl6am58qlb13ejgu2rj7tc70jdn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

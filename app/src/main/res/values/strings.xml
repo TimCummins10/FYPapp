@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Attendance Taker</string>
+    <string name="title_activity_newlogin">NEWLOGINActivity</string>
+
+    <string-array name="classList">
+        <item>Tim__R00127739</item>
+        <item>Joe_R00217728</item>
+        <item>Frank_R0028937</item>
+        <item>Thomas__R00173829</item>
+        <item>Harry__R00385939</item>
+
+
+    </string-array>
+</resources>
