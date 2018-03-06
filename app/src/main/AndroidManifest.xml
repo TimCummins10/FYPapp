@@ -22,7 +22,9 @@
         <activity android:name=".TakeAttendanceActivity" />
         <activity android:name=".StudentStatisticsActivity" />
         <activity android:name=".AddStudentToClassActivity" />
-        <activity android:name=".ViewClassesActivity"></activity>
+        <activity android:name=".ViewClassesActivity" />
+        <activity android:name=".AddNewClassActivity" />
+        <activity android:name=".TEST"></activity>
     </application>
 
 </manifest>

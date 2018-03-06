@@ -29,8 +29,8 @@ public class TakeAttendanceActivity extends AppCompatActivity {
     private ArrayList<String> allStudentsList = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Database Systems").child("AllStudents");
-    private DatabaseReference dbPresentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Database Systems").child("PresentStudents");
+    private DatabaseReference dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Maths").child("AllStudents");
+    private DatabaseReference dbPresentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Maths").child("PresentStudents");
 
     ArrayList<String> selectedItems = new ArrayList<>();
 

@@ -1,3 +1,4 @@
+
 package com.tim.fypapp;
 
 import android.content.Intent;
@@ -59,20 +60,20 @@ public class ViewClassesActivity extends AppCompatActivity {
         dbAllClasses.addListenerForSingleValueEvent(eventListener);
     }
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
 
-            return true;
-        }
+        return true;
+    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menuLogout:
                 FirebaseAuth.getInstance().signOut();
@@ -86,8 +87,5 @@ public class ViewClassesActivity extends AppCompatActivity {
         return true;
     }
 
-    }
-
-
-
+}
 

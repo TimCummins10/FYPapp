@@ -45,29 +45,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         welcomeUser = (TextView) findViewById(R.id.userLoggedIn);
         findViewById(R.id.takeAttendance).setOnClickListener(this);
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
+        findViewById(R.id.addStudent).setOnClickListener(this);
+        findViewById(R.id.addClass).setOnClickListener(this);
+        findViewById(R.id.viewStatistics).setOnClickListener(this);
 
-
-
-/*
-        // Get a reference to your user
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Users");
-
-// Attach a listener to read the data at your profile reference
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserInformation profile = dataSnapshot.getValue(UserInformation.class);
-                System.out.println(profile.getFullName());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-*/
 
         users.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,14 +115,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()) {
 
             case R.id.takeAttendance:
-                finish();
                 startActivity(new Intent(this, TakeAttendanceActivity.class));
                 break;
 
             case R.id.viewAllClasses:
-                finish();
                 startActivity(new Intent(this, ViewClassesActivity.class));
                 break;
+
+            case R.id.addClass:
+                startActivity(new Intent(this, AddNewClassActivity.class));
+                break;
+
+            case R.id.addStudent:
+                startActivity(new Intent(this, AddStudentToClassActivity.class));
+                break;
+
+
         }
     }
 }

@@ -22,10 +22,10 @@ import com.tim.fypapp.Model.UserInformation;
 
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etFullname, etUsername, etEmail, etPassword;
-    ProgressBar progressBar;
-    FirebaseAuth mAuth;
-    DatabaseReference dbRef;
+    private EditText etFullname, etUsername, etEmail, etPassword;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private DatabaseReference dbRef;
 
 
 

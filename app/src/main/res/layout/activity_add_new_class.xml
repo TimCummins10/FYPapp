@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context="com.tim.fypapp.AddStudentToClassActivity">
+    tools:context="com.tim.fypapp.AddNewClassActivity">
+
 
     <ImageView
         android:layout_width="130dp"
@@ -17,7 +18,7 @@
 
 
     <TextView
-        android:id="@+id/tvEnterNameOfStudent"
+        android:id="@+id/tvEnterNameOfClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -25,17 +26,16 @@
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:text="What Student would you like to add?" />
+        tools:text="What class would you like to create?" />
 
     <EditText
-        android:id="@+id/etAddStudent"
+        android:id="@+id/etAddClass"
         android:layout_width="305dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/etSurname"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Student Name"
+        android:hint="Class Name"
         android:inputType="textPersonName"
         android:textColor="@android:color/background_light"
         android:textColorHint="#ffffff"
@@ -43,12 +43,12 @@
         tools:layout_editor_absoluteY="101dp" />
 
     <Button
-        android:id="@+id/addStudentButton"
+        android:id="@+id/addClassButton"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="Add Student" />
+        android:text="Add Class" />
 
 
 </LinearLayout>

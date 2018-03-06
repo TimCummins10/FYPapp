@@ -28,6 +28,15 @@
         android:textSize="30sp" />
 
     <Button
+        android:id="@+id/addClass"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:text="Add Class" />
+
+    <Button
         android:id="@+id/addStudent"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
@@ -41,7 +50,6 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         android:text="View Classes" />
 
     <Button
@@ -51,5 +59,13 @@
         android:layout_gravity="center"
 
         android:text="Take Attendance For A Class" />
+
+    <Button
+        android:id="@+id/viewStatistics"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="View Statistics for a Class" />
 
 </LinearLayout>
