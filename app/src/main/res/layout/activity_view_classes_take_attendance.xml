@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.tim.fypapp.ViewClassesActivity">
+    tools:context="com.tim.fypapp.ViewClassesNewStudentActivity">
 
 
     <ImageView
@@ -17,19 +17,20 @@
         android:src="@drawable/pencil_logo" />
 
     <TextView
-        android:id="@+id/tvAllClasses3"
+        android:id="@+id/tvAllClasses2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="List of All Classes"
+        android:text="Select A Class To Take Attendance For"
+        android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:text="List of All Classes" />
+        tools:text="Select A Class To Take Attendance For" />
 
     <Spinner
-        android:id="@+id/allClasses3"
+        android:id="@+id/allClasses2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

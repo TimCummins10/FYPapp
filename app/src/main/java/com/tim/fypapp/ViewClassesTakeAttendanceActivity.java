@@ -9,10 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,18 +22,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewClassesActivity extends AppCompatActivity {
+public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
 
+    private DatabaseReference dbRefTEST;
     private ArrayList<String> allClassNames = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbAllClasses = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_classes);
-
+        setContentView(R.layout.activity_view_classes_take_attendance);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -45,10 +44,27 @@ public class ViewClassesActivity extends AppCompatActivity {
                     allClassNames.add(name);
                 }
 
-                Spinner allClasses = findViewById(R.id.allClasses3);
+                Spinner allClasses = findViewById(R.id.allClasses2);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, allClassNames);
 
                 allClasses.setAdapter(adapter);
+
+                allClasses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+                        //String selectedClass = adapterView.getItemAtPosition(i).toString();
+                        dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
+                        Intent selectedClass = new Intent(getApplicationContext(), TakeAttendanceActivity.class);
+                        selectedClass.putExtra("testing", adapterView.getItemAtPosition(i).toString());
+                        startActivity(selectedClass);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
             }
 
@@ -85,5 +101,5 @@ public class ViewClassesActivity extends AppCompatActivity {
 
         return true;
     }
-
 }
+

@@ -26,9 +26,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth mAuth;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        // setSupportActionBar(toolbar);
 
 
         welcomeUser = (TextView) findViewById(R.id.userLoggedIn);
@@ -53,8 +50,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               // String userLoggedIn = dataSnapshot.getValue().toString();
-               // welcomeUser.setText("Welcome " + userLoggedIn);
+                // String userLoggedIn = dataSnapshot.getValue().toString();
+                // welcomeUser.setText("Welcome " + userLoggedIn);
 
 
                 UserInformation welcome = dataSnapshot.getValue(UserInformation.class);
@@ -81,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menuLogout:
                 FirebaseAuth.getInstance().signOut();
@@ -96,12 +93,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-        @Override
+    @Override
     protected void onStart() {
         super.onStart();
 
-        if(mAuth.getCurrentUser() == null){
+        if (mAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(this, SignInActivity.class));
         }
@@ -112,10 +108,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()) {
+        switch (view.getId()) {
 
             case R.id.takeAttendance:
-                startActivity(new Intent(this, TakeAttendanceActivity.class));
+                startActivity(new Intent(this, ViewClassesTakeAttendanceActivity.class));
                 break;
 
             case R.id.viewAllClasses:
@@ -127,7 +123,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.addStudent:
-                startActivity(new Intent(this, AddStudentToClassActivity.class));
+                startActivity(new Intent(this, ViewClassesNewStudentActivity.class));
                 break;
 
 

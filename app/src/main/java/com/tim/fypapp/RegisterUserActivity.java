@@ -28,9 +28,6 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private DatabaseReference dbRef;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,38 +47,37 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
     private void createUser() {
 
         String name = etFullname.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             etFullname.setError("Please fill in a name");
             etFullname.requestFocus();
             return;
         }
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             etEmail.setError("Please enter an Email Address");
             etEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Please enter a valid Email Address");
             etEmail.requestFocus();
             return;
         }
 
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             etPassword.setError("Please fill in a password");
             etPassword.requestFocus();
             return;
         }
 
-        if(password.length()<6){
+        if (password.length() < 6) {
             etPassword.setError("Password must be at least 6 characters long.");
             etPassword.requestFocus();
             return;
@@ -95,7 +91,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
                 progressBar.setVisibility(View.GONE);
 
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Account Created Successfully \n Data Saved to Database", Toast.LENGTH_SHORT).show();
                     String name = etFullname.getText().toString().trim();
                     String email = etEmail.getText().toString().trim();
@@ -112,14 +108,11 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
                     startActivity(intent);
 
 
-                }
-                else{
+                } else {
 
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "Email address has already been registered.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    else{
+                    } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
@@ -130,11 +123,10 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()){
+        switch (view.getId()) {
 
             case R.id.backToLogin:
                 finish();

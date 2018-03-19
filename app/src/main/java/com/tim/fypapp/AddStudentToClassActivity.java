@@ -23,7 +23,7 @@ public class AddStudentToClassActivity extends AppCompatActivity implements View
     private TextView tvEnterNameOfStudent;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRef, dbRefTEST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class AddStudentToClassActivity extends AppCompatActivity implements View
         mAuth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child("Maths").child("AllStudents");
 
-
         findViewById(R.id.addStudentButton).setOnClickListener(this);
 
 
@@ -47,15 +46,24 @@ public class AddStudentToClassActivity extends AppCompatActivity implements View
 
     private void addNewStudent() {
 
+        String newString;
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            newString = null;
+        } else {
+            newString = extras.getString("testing");
+        }
+
         String newStudent = etAddStudent.getText().toString().trim();
 
-        if(newStudent.isEmpty()){
+        if (newStudent.isEmpty()) {
             etAddStudent.setError("Please fill in a student you would like to add.");
             etAddStudent.requestFocus();
             return;
         }
+        dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(newString).child("AllStudents");
 
-        dbRef.child(newStudent).setValue(newStudent);
+        dbRefTEST.child(newStudent).setValue(newStudent);
         Toast.makeText(getApplicationContext(), "New Student Added!", Toast.LENGTH_LONG).show();
 
     }
@@ -72,7 +80,7 @@ public class AddStudentToClassActivity extends AppCompatActivity implements View
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.menuLogout:
                 FirebaseAuth.getInstance().signOut();

@@ -43,25 +43,25 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String password = etPassword.getText().toString().trim();
 
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             etEmail.setError("Please enter an Email Address");
             etEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Please enter a valid Email Address");
             etEmail.requestFocus();
             return;
         }
 
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             etPassword.setError("Please fill in a password");
             etPassword.requestFocus();
             return;
         }
 
-        if(password.length()<6){
+        if (password.length() < 6) {
             etPassword.setError("Password must be at least 6 characters long.");
             etPassword.requestFocus();
             return;
@@ -72,7 +72,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     finish();
                     progressBar.setVisibility(View.GONE);
 
@@ -80,8 +80,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
 
@@ -92,17 +91,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.accountCreation:
                 finish();
                 startActivity(new Intent(this, RegisterUserActivity.class));
                 break;
-                
+
             case R.id.loginButton:
                 userLogin();
                 break;
