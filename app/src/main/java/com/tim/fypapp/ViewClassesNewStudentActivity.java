@@ -30,6 +30,7 @@ public class ViewClassesNewStudentActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbAllClasses = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes");
+    private int check = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +48,20 @@ public class ViewClassesNewStudentActivity extends AppCompatActivity {
 
                 Spinner allClasses = findViewById(R.id.allClasses);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, allClassNames);
-
                 allClasses.setAdapter(adapter);
-
+                allClasses.setPrompt("Please Select A Class");
                 allClasses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-                        //String selectedClass = adapterView.getItemAtPosition(i).toString();
-                        dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
-                        Intent selectedClass = new Intent(getApplicationContext(), AddStudentToClassActivity.class);
-                        selectedClass.putExtra("testing", adapterView.getItemAtPosition(i).toString());
-                        startActivity(selectedClass);
+                        if (++check > 1) {
+
+                            Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+                            //String selectedClass = adapterView.getItemAtPosition(i).toString();
+                            dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
+                            Intent selectedClass = new Intent(getApplicationContext(), AddStudentToClassActivity.class);
+                            selectedClass.putExtra("classSelected", adapterView.getItemAtPosition(i).toString());
+                            startActivity(selectedClass);
+                        }
                     }
 
                     @Override

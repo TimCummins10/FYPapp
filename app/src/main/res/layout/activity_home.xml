@@ -61,11 +61,11 @@
         android:text="Take Attendance For A Class" />
 
     <Button
-        android:id="@+id/viewStatistics"
+        android:id="@+id/viewStats"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
-        android:text="View Statistics for a Class" />
+        android:text="View Attendance Record" />
 
 </LinearLayout>

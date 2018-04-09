@@ -51,7 +51,7 @@ public class AddStudentToClassActivity extends AppCompatActivity implements View
         if (extras == null) {
             newString = null;
         } else {
-            newString = extras.getString("testing");
+            newString = extras.getString("classSelected");
         }
 
         String newStudent = etAddStudent.getText().toString().trim();

@@ -20,12 +20,13 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterUserActivity" />
         <activity android:name=".TakeAttendanceActivity" />
-        <activity android:name=".StudentStatisticsActivity" />
+        <activity android:name=".ViewClassesStudentStatsActivity" />
         <activity android:name=".AddStudentToClassActivity" />
         <activity android:name=".ViewClassesNewStudentActivity" />
         <activity android:name=".AddNewClassActivity" />
         <activity android:name=".ViewClassesTakeAttendanceActivity" />
-        <activity android:name=".ViewClassesActivity"></activity>
+        <activity android:name=".ViewClassesActivity" />
+        <activity android:name=".StudentStatsActivity"></activity>
     </application>
 
 </manifest>

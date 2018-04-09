@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
+public class ViewClassesStudentStatsActivity extends AppCompatActivity {
 
     private DatabaseReference dbRefTEST;
     private ArrayList<String> allClassNames = new ArrayList<String>();
@@ -32,10 +32,11 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
     private int check = 0;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_classes_take_attendance);
+        setContentView(R.layout.activity_view_classes_student_stats);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -45,7 +46,7 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
                     allClassNames.add(name);
                 }
 
-                Spinner allClasses = findViewById(R.id.allClasses2);
+                Spinner allClasses = findViewById(R.id.allClasses3);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, allClassNames);
 
                 allClasses.setAdapter(adapter);
@@ -57,17 +58,17 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
                             Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
                             //String selectedClass = adapterView.getItemAtPosition(i).toString();
                             dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
-                            Intent selectedClass = new Intent(getApplicationContext(), TakeAttendanceActivity.class);
+                            Intent selectedClass = new Intent(getApplicationContext(), StudentStatsActivity.class);
                             selectedClass.putExtra("classSelected", adapterView.getItemAtPosition(i).toString());
                             startActivity(selectedClass);
                         }
                     }
 
                     @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+                    public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+                    }
+                });
 
             }
 
@@ -105,4 +106,5 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
         return true;
     }
 }
+
 

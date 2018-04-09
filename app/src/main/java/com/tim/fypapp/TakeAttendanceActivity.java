@@ -33,9 +33,6 @@ public class TakeAttendanceActivity extends AppCompatActivity {
     private ArrayList<String> allStudentsList = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
-    //private DatabaseReference dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Maths").child("AllStudents");
-    //private DatabaseReference dbPresentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Maths").child("PresentStudents");
-    //private DatabaseReference dbAbsentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child("Maths").child("AbsentStudents");
     private DatabaseReference dbAllRef, dbPresentRef, dbAbsentRef;
     TextView dateAndTime;
 
@@ -87,15 +84,15 @@ public class TakeAttendanceActivity extends AppCompatActivity {
             }
         };
 
-        String newString;
+        String selectedClass;
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
-            newString = null;
+            selectedClass = null;
         } else {
-            newString = extras.getString("testing");
+            selectedClass = extras.getString("classSelected");
         }
 
-        dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(newString).child("AllStudents");
+        dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AllStudents");
         dbAllRef.addListenerForSingleValueEvent(eventListener);
 
 
@@ -139,7 +136,7 @@ public class TakeAttendanceActivity extends AppCompatActivity {
         if (extras == null) {
             selectedClass = null;
         } else {
-            selectedClass = extras.getString("testing");
+            selectedClass = extras.getString("classSelected");
         }
 
         FirebaseUser user = mAuth.getCurrentUser();
@@ -154,7 +151,9 @@ public class TakeAttendanceActivity extends AppCompatActivity {
         }
 
         for (int i = 0; i < unselectedItems.size(); i++) {
-            dbAbsentRef.child(unselectedItems.get(i)).push().setValue("Absent");
+            dbAbsentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents").child(unselectedItems.get(i)).child(formattedDate);
+
+            dbAbsentRef.setValue("Absent");
         }
 
         Toast.makeText(this, "Students Present: \n" + presentStudents, Toast.LENGTH_LONG).show();

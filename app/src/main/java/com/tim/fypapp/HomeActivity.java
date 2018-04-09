@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
         findViewById(R.id.addStudent).setOnClickListener(this);
         findViewById(R.id.addClass).setOnClickListener(this);
-        findViewById(R.id.viewStatistics).setOnClickListener(this);
+        findViewById(R.id.viewStats).setOnClickListener(this);
 
 
         users.addValueEventListener(new ValueEventListener() {
@@ -124,6 +124,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.addStudent:
                 startActivity(new Intent(this, ViewClassesNewStudentActivity.class));
+                break;
+
+            case R.id.viewStats:
+                startActivity(new Intent(this, ViewClassesStudentStatsActivity.class));
                 break;
 
 
