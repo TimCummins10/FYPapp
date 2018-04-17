@@ -3,6 +3,7 @@ package com.tim.fypapp;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,26 +23,20 @@ import java.util.ArrayList;
 public class StudentStatsActivity extends AppCompatActivity {
 
     private ArrayList<String> allStudentsList = new ArrayList<String>();
+    private ArrayList<Integer> allAbsent = new ArrayList<Integer>();
+    private ArrayList<Integer> allPresent = new ArrayList<Integer>();
+    private ArrayList<Integer> totalClasses = new ArrayList<Integer>();
+
     private ArrayList<String> attendancePercentage = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbAllRef, absentNumber, presentNumber;
     private TextView statsResult;
-    private long  total, attendanceRecord;
+    private long present, absent,  total;
+    private int presentClasses;
+    private int absentClasses;
+   // private int totalClasses, attendanceRecord;
 
-    long present = -1;
-    long absent = -1;
-
-
-
-    public void checkAttendanceRecord(long present, long absent) {
-        if (present >= 0 && absent >= 0) {
-            total = present + absent;
-            attendanceRecord = present / total;
-
-            allStudentsList.add( "\t" + attendanceRecord + "%");
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +44,6 @@ public class StudentStatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_stats);
 
         statsResult = (TextView) findViewById(R.id.statsResult);
-
-
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -66,53 +59,72 @@ public class StudentStatsActivity extends AppCompatActivity {
                     } else {
                         selectedClass = extras.getString("classSelected");
                     }
-                    //absentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents").child(name);
-                    //presentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("PresentStudents").child(name);
 
 
+                    absentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents").child(name);
+                    presentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("PresentStudents").child(name);
 
 
-                    presentNumber.addListenerForSingleValueEvent(new ValueEventListener() {
+                    ValueEventListener eventListener2 = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                                present = snap.getChildrenCount() ;
+
+                            absentClasses = 0;
+
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                                absentClasses = absentClasses + 1;
+
                             }
-                            checkAttendanceRecord(present, absent);
-
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            throw databaseError.toException();
-                        }
-                    });
-
-                    absentNumber.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snap: dataSnapshot.getChildren()) {
-                                 absent = snap.getChildrenCount() ;
-                            }
-                            checkAttendanceRecord(present, absent);
-
+                            System.out.println("ABSENT:" + absentClasses);
+                            allAbsent.add(absentClasses);
+                            System.out.println("<><><><><><><>" + allAbsent);
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            throw databaseError.toException();
+
                         }
-                    });
+                    };
 
-               //     int presentTest = (int) present;
-                //    int absentTest = (int) absent;
-                  //  int totalTest = presentTest + absentTest;
-                   // double attendanceRecordTest = presentTest / totalTest;
-                   // total = present + absent;
-                   // attendanceRecord = present / total;
+                    absentNumber.addListenerForSingleValueEvent(eventListener2);
 
-                   // allStudentsList.add(name + "\t" + attendanceRecordTest + "%");
+
+
+                    ValueEventListener eventListener3 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            presentClasses = 0;
+
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                presentClasses = presentClasses + 1;
+
+                            }
+                            System.out.println("PRESENT"+presentClasses);
+                            allPresent.add(presentClasses);
+                            System.out.println("<><><><><><><>" + allPresent);
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    };
+
+                    presentNumber.addListenerForSingleValueEvent(eventListener3);
+
+                    allStudentsList.add(name + ":\t"  + "%");
 
                 }
+
+                for(int i=0; i<allPresent.size(); i++){
+                    totalClasses.add(allPresent.get(i) + allAbsent.get(i));
+                }
+
+                System.out.println("####################" + totalClasses);
 
 
                 final ListView listView = findViewById(R.id.studentList);
@@ -127,20 +139,29 @@ public class StudentStatsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
         };
+
+        System.out.println("<><><><><><><>" + allPresent);
+
 
         String selectedClass;
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             selectedClass = null;
-        } else {
+        }
+
+        else {
             selectedClass = extras.getString("classSelected");
         }
 
-     //   dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AllStudents");
-     //   dbAllRef.addListenerForSingleValueEvent(eventListener);
-        }
 
+
+        dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AllStudents");
+        dbAllRef.addListenerForSingleValueEvent(eventListener);
+
+
+        }
 
 
     }

@@ -39,11 +39,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // setSupportActionBar(toolbar);
 
 
-        welcomeUser = (TextView) findViewById(R.id.userLoggedIn);
+       // welcomeUser = (TextView) findViewById(R.id.userLoggedIn);
         findViewById(R.id.takeAttendance).setOnClickListener(this);
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
         findViewById(R.id.addStudent).setOnClickListener(this);
         findViewById(R.id.addClass).setOnClickListener(this);
+        findViewById(R.id.removeClass).setOnClickListener(this);
         findViewById(R.id.viewStats).setOnClickListener(this);
 
 
@@ -120,6 +121,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.addClass:
                 startActivity(new Intent(this, AddNewClassActivity.class));
+                break;
+
+            case R.id.removeClass:
+                startActivity(new Intent(this, ViewClassesRemoveClassActivity.class));
                 break;
 
             case R.id.addStudent:

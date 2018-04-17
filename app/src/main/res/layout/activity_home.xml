@@ -15,17 +15,6 @@
         android:layout_margin="15dp"
         android:src="@drawable/pencil_logo" />
 
-    <TextView
-        android:id="@+id/userLoggedIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addStudent"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:layout_toEndOf="@+id/viewAllClasses"
-        android:layout_toRightOf="@+id/viewAllClasses"
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp" />
 
     <Button
         android:id="@+id/addClass"
@@ -35,6 +24,15 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:text="Add Class" />
+
+    <Button
+        android:id="@+id/removeClass"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:text="Remove Class" />
 
     <Button
         android:id="@+id/addStudent"

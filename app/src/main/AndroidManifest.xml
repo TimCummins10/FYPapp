@@ -26,7 +26,8 @@
         <activity android:name=".AddNewClassActivity" />
         <activity android:name=".ViewClassesTakeAttendanceActivity" />
         <activity android:name=".ViewClassesActivity" />
-        <activity android:name=".StudentStatsActivity"></activity>
+        <activity android:name=".StudentStatsActivity" />
+        <activity android:name=".ViewClassesRemoveClassActivity"></activity>
     </application>
 
 </manifest>
