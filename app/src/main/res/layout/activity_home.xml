@@ -44,6 +44,15 @@
         android:text="Add Student" />
 
     <Button
+        android:id="@+id/removeStudents"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:text="Remove Students" />
+
+    <Button
         android:id="@+id/viewAllClasses"
         android:layout_width="280dp"
         android:layout_height="wrap_content"

@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.takeAttendance).setOnClickListener(this);
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
         findViewById(R.id.addStudent).setOnClickListener(this);
+        findViewById(R.id.removeStudents).setOnClickListener(this);
         findViewById(R.id.addClass).setOnClickListener(this);
         findViewById(R.id.removeClass).setOnClickListener(this);
         findViewById(R.id.viewStats).setOnClickListener(this);
@@ -124,11 +125,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.removeClass:
-                startActivity(new Intent(this, ViewClassesRemoveClassActivity.class));
+                startActivity(new Intent(this, RemoveClassActivity.class));
                 break;
 
             case R.id.addStudent:
                 startActivity(new Intent(this, ViewClassesNewStudentActivity.class));
+                break;
+
+            case R.id.removeStudents:
+                startActivity(new Intent(this, ViewClassesRemoveStudentsActivity.class));
                 break;
 
             case R.id.viewStats:

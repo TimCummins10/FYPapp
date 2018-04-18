@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewClassesRemoveClassActivity extends AppCompatActivity {
+public class RemoveClassActivity extends AppCompatActivity {
 
     private DatabaseReference dbRefTEST, removeClass;
     private ArrayList<String> allClassNames = new ArrayList<String>();

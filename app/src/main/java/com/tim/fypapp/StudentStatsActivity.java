@@ -26,6 +26,9 @@ public class StudentStatsActivity extends AppCompatActivity {
     private ArrayList<Integer> allAbsent = new ArrayList<Integer>();
     private ArrayList<Integer> allPresent = new ArrayList<Integer>();
     private ArrayList<Integer> totalClasses = new ArrayList<Integer>();
+    private ArrayList<Double> percentage = new ArrayList<Double>();
+
+    private ArrayList<String> allNames = new ArrayList<String>();
 
     private ArrayList<String> attendancePercentage = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -50,7 +53,7 @@ public class StudentStatsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String name = ds.getKey();
-
+                    allNames.add(name);
 
                     String selectedClass;
                     Bundle extras = getIntent().getExtras();
@@ -116,7 +119,9 @@ public class StudentStatsActivity extends AppCompatActivity {
 
                     presentNumber.addListenerForSingleValueEvent(eventListener3);
 
-                    allStudentsList.add(name + ":\t"  + "%");
+
+
+
 
                 }
 
@@ -124,26 +129,100 @@ public class StudentStatsActivity extends AppCompatActivity {
                     totalClasses.add(allPresent.get(i) + allAbsent.get(i));
                 }
 
-                System.out.println("####################" + totalClasses);
 
 
+                ValueEventListener getTotalClasses = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(int i=0; i<allPresent.size(); i++){
+                            totalClasses.add(allPresent.get(i) + allAbsent.get(i));
+                        }
+                        System.out.println("::::::::::::::::" + totalClasses);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+
+                presentNumber.addListenerForSingleValueEvent(getTotalClasses);
+
+
+                final ValueEventListener attendancePercentage = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(int i=0; i<totalClasses.size(); i++){
+
+                            double present = (double) allPresent.get(i);
+                            double total = (double) totalClasses.get(i);
+                            double stat = (present / total) * 100;
+
+                            percentage.add(stat);
+                        }
+
+                        System.out.println("+++++++++++++++++" + percentage);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+
+                presentNumber.addListenerForSingleValueEvent(attendancePercentage);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+                ValueEventListener AttendanceRecord = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(int i=0; i<totalClasses.size(); i++){
+
+
+                           allStudentsList.add(allNames.get(i) + ":\t" + percentage.get(i) + "%");
+                            final ListView listView = findViewById(R.id.studentList);
+                            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, allStudentsList);
+                            listView.setAdapter(adapter);
+
+
+                        }
+
+                        System.out.println("+++++++++++++++++" + percentage);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+
+                dbAllRef.addListenerForSingleValueEvent(AttendanceRecord);
+
+                ////////////////////////////////////////////////////////////////////////////
+/*
                 final ListView listView = findViewById(R.id.studentList);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, allStudentsList);
                 listView.setAdapter(adapter);
-
+*/
 
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
 
         };
-
-        System.out.println("<><><><><><><>" + allPresent);
-
 
         String selectedClass;
         Bundle extras = getIntent().getExtras();
@@ -159,7 +238,6 @@ public class StudentStatsActivity extends AppCompatActivity {
 
         dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AllStudents");
         dbAllRef.addListenerForSingleValueEvent(eventListener);
-
 
         }
 
