@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,13 +18,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tim.fypapp.Model.UserInformation;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    FirebaseDatabase database;
-    DatabaseReference users;
-    TextView welcomeUser;
+    private FirebaseDatabase database;
+    private DatabaseReference users;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mAuth.getCurrentUser();
+    private DatabaseReference username = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
+    private int check = 0;
+    private ArrayList<String> userInfo = new ArrayList<String>();
 
-    FirebaseAuth mAuth;
+
 
 
     @Override
@@ -31,44 +38,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         database = FirebaseDatabase.getInstance();
         users = database.getReference().child("fullName");
         mAuth = FirebaseAuth.getInstance();
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
 
 
-       // welcomeUser = (TextView) findViewById(R.id.userLoggedIn);
+
         findViewById(R.id.takeAttendance).setOnClickListener(this);
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
         findViewById(R.id.addStudent).setOnClickListener(this);
-        findViewById(R.id.removeStudents).setOnClickListener(this);
         findViewById(R.id.addClass).setOnClickListener(this);
         findViewById(R.id.removeClass).setOnClickListener(this);
         findViewById(R.id.viewStats).setOnClickListener(this);
 
 
-        users.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // String userLoggedIn = dataSnapshot.getValue().toString();
-                // welcomeUser.setText("Welcome " + userLoggedIn);
+        }
 
 
-                UserInformation welcome = dataSnapshot.getValue(UserInformation.class);
-                System.out.print("Welcome");
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-    }
-
-    @Override
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
@@ -130,10 +122,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.addStudent:
                 startActivity(new Intent(this, ViewClassesNewStudentActivity.class));
-                break;
-
-            case R.id.removeStudents:
-                startActivity(new Intent(this, ViewClassesRemoveStudentsActivity.class));
                 break;
 
             case R.id.viewStats:

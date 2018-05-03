@@ -34,7 +34,7 @@ public class RemoveClassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_classes_new_student);
+        setContentView(R.layout.remove_class);
 
 
         ValueEventListener eventListener = new ValueEventListener() {

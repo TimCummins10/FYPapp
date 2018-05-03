@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context="com.tim.fypapp.StudentStatsActivity">
+    tools:context="com.tim.fypapp.RemoveClassActivity">
+
 
     <ImageView
         android:layout_width="130dp"
@@ -16,23 +17,24 @@
         android:src="@drawable/pencil_logo" />
 
     <TextView
-        android:id="@+id/attendanceRecord"
+        android:id="@+id/tvRemoveClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="Attendance Record"
+        android:text="Select A Class You Would Like To Remove"
         android:textAlignment="center"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:text="Attendance Record" />
+        tools:text="Select A Class You Would Like To Remove" />
 
-
-    <ListView
-        android:id="@+id/studentList"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/allClasses"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_gravity="center"
+        android:spinnerMode="dialog"
+        android:visibility="visible" />
 
 </LinearLayout>

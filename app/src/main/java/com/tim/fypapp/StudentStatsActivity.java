@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StudentStatsActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class StudentStatsActivity extends AppCompatActivity {
     private ArrayList<Integer> allAbsent = new ArrayList<Integer>();
     private ArrayList<Integer> allPresent = new ArrayList<Integer>();
     private ArrayList<Integer> totalClasses = new ArrayList<Integer>();
-    private ArrayList<Double> percentage = new ArrayList<Double>();
+    private ArrayList<String> percentage = new ArrayList<String>();
 
     private ArrayList<String> allNames = new ArrayList<String>();
 
@@ -150,7 +151,7 @@ public class StudentStatsActivity extends AppCompatActivity {
                 presentNumber.addListenerForSingleValueEvent(getTotalClasses);
 
 
-                final ValueEventListener attendancePercentage = new ValueEventListener() {
+                ValueEventListener attendancePercentage = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(int i=0; i<totalClasses.size(); i++){
@@ -159,11 +160,11 @@ public class StudentStatsActivity extends AppCompatActivity {
                             double total = (double) totalClasses.get(i);
                             double stat = (present / total) * 100;
 
-                            percentage.add(stat);
+                            DecimalFormat df = new DecimalFormat("#0.00");
+                            String finalPercentage = df.format(stat);
+
+                            percentage.add(finalPercentage);
                         }
-
-                        System.out.println("+++++++++++++++++" + percentage);
-
 
                     }
 
@@ -182,18 +183,14 @@ public class StudentStatsActivity extends AppCompatActivity {
                         for(int i=0; i<totalClasses.size(); i++){
 
 
-                           allStudentsList.add(allNames.get(i) + ":\t" + percentage.get(i) + "%");
+                           allStudentsList.add( allNames.get(i) + ": \t" + percentage.get(i) + "%");
                             final ListView listView = findViewById(R.id.studentList);
                             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, allStudentsList);
                             listView.setAdapter(adapter);
 
-
                         }
-
-                        System.out.println("+++++++++++++++++" + percentage);
-
 
                     }
 
@@ -204,15 +201,6 @@ public class StudentStatsActivity extends AppCompatActivity {
                 };
 
                 dbAllRef.addListenerForSingleValueEvent(AttendanceRecord);
-
-                ////////////////////////////////////////////////////////////////////////////
-/*
-                final ListView listView = findViewById(R.id.studentList);
-                listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, allStudentsList);
-                listView.setAdapter(adapter);
-*/
 
             }
 
