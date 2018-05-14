@@ -34,12 +34,8 @@ public class TakeAttendanceActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbAllRef, dbPresentRef, dbAbsentRef;
-    TextView dateAndTime;
-
-
     private ArrayList<String> selectedItems = new ArrayList<>();
     private ArrayList<String> unselectedItems = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +54,9 @@ public class TakeAttendanceActivity extends AppCompatActivity {
                 final ListView listView = findViewById(R.id.checkable_list);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.row_layout, R.id.checkList, allStudentsList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                        R.layout.row_layout,
+                        R.id.checkList, allStudentsList);
 
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,7 +127,6 @@ public class TakeAttendanceActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = df.format(c.getTime());
-       // dateAndTime.setText(formattedDate);
 
         String selectedClass;
         Bundle extras = getIntent().getExtras();
@@ -141,17 +138,23 @@ public class TakeAttendanceActivity extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         dbAbsentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents");
+
         String presentStudents = "";
 
         for (int i = 0; i < selectedItems.size(); i++) {
-            dbPresentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("PresentStudents").child(selectedItems.get(i)).child(formattedDate);
+            dbPresentRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                    .child(user.getUid()).child("Classes").child(selectedClass)
+                    .child("PresentStudents").child(selectedItems.get(i)).child(formattedDate);
 
             dbPresentRef.setValue("Present");
             presentStudents += "-" + selectedItems.get(i) + "\n";
         }
 
         for (int i = 0; i < unselectedItems.size(); i++) {
-            dbAbsentRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents").child(unselectedItems.get(i)).child(formattedDate);
+            dbAbsentRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Users").child(user.getUid()).child("Classes")
+                    .child(selectedClass).child("AbsentStudents")
+                    .child(unselectedItems.get(i)).child(formattedDate);
 
             dbAbsentRef.setValue("Absent");
         }

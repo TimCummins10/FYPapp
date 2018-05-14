@@ -27,7 +27,6 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private FirebaseAuth mAuth;
     private DatabaseReference dbRef;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +44,6 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.backToLogin).setOnClickListener(this);
 
     }
-
 
     private void createUser() {
 

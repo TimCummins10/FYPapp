@@ -21,14 +21,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     EditText etEmail, etPassword;
     ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
-
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -41,7 +39,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-
 
         if (email.isEmpty()) {
             etEmail.setError("Please enter an Email Address");

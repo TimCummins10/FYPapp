@@ -36,7 +36,6 @@ public class RemoveClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.remove_class);
 
-
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -55,15 +54,11 @@ public class RemoveClassActivity extends AppCompatActivity {
                         if (++check > 1) {
 
                             Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-                            //String selectedClass = adapterView.getItemAtPosition(i).toString();
                             dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
-
                             removeClass = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString());
                             removeClass.removeValue();
 
                             Intent backToHome = new Intent(getApplicationContext(), HomeActivity.class);
-                            //allClassNames.remove(adapterView.getItemAtPosition(i));
-
                             startActivity(backToHome);
                         }
                     }

@@ -28,18 +28,13 @@ public class StudentStatsActivity extends AppCompatActivity {
     private ArrayList<Integer> allPresent = new ArrayList<Integer>();
     private ArrayList<Integer> totalClasses = new ArrayList<Integer>();
     private ArrayList<String> percentage = new ArrayList<String>();
-
     private ArrayList<String> allNames = new ArrayList<String>();
-
-    private ArrayList<String> attendancePercentage = new ArrayList<String>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbAllRef, absentNumber, presentNumber;
     private TextView statsResult;
-    private long present, absent,  total;
     private int presentClasses;
     private int absentClasses;
-   // private int totalClasses, attendanceRecord;
 
 
     @Override
@@ -64,10 +59,8 @@ public class StudentStatsActivity extends AppCompatActivity {
                         selectedClass = extras.getString("classSelected");
                     }
 
-
                     absentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AbsentStudents").child(name);
                     presentNumber = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("PresentStudents").child(name);
-
 
                     ValueEventListener eventListener2 = new ValueEventListener() {
                         @Override
@@ -80,9 +73,7 @@ public class StudentStatsActivity extends AppCompatActivity {
                                 absentClasses = absentClasses + 1;
 
                             }
-                            System.out.println("ABSENT:" + absentClasses);
                             allAbsent.add(absentClasses);
-                            System.out.println("<><><><><><><>" + allAbsent);
                         }
 
                         @Override
@@ -92,7 +83,6 @@ public class StudentStatsActivity extends AppCompatActivity {
                     };
 
                     absentNumber.addListenerForSingleValueEvent(eventListener2);
-
 
 
                     ValueEventListener eventListener3 = new ValueEventListener() {
@@ -105,11 +95,8 @@ public class StudentStatsActivity extends AppCompatActivity {
                                 presentClasses = presentClasses + 1;
 
                             }
-                            System.out.println("PRESENT"+presentClasses);
+                            System.out.println("PRESENT" + presentClasses);
                             allPresent.add(presentClasses);
-                            System.out.println("<><><><><><><>" + allPresent);
-
-
                         }
 
                         @Override
@@ -121,25 +108,18 @@ public class StudentStatsActivity extends AppCompatActivity {
                     presentNumber.addListenerForSingleValueEvent(eventListener3);
 
 
-
-
-
                 }
 
-                for(int i=0; i<allPresent.size(); i++){
+                for (int i = 0; i < allPresent.size(); i++) {
                     totalClasses.add(allPresent.get(i) + allAbsent.get(i));
                 }
-
-
 
                 ValueEventListener getTotalClasses = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(int i=0; i<allPresent.size(); i++){
+                        for (int i = 0; i < allPresent.size(); i++) {
                             totalClasses.add(allPresent.get(i) + allAbsent.get(i));
                         }
-                        System.out.println("::::::::::::::::" + totalClasses);
-
                     }
 
                     @Override
@@ -154,7 +134,7 @@ public class StudentStatsActivity extends AppCompatActivity {
                 ValueEventListener attendancePercentage = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(int i=0; i<totalClasses.size(); i++){
+                        for (int i = 0; i < totalClasses.size(); i++) {
 
                             double present = (double) allPresent.get(i);
                             double total = (double) totalClasses.get(i);
@@ -176,18 +156,17 @@ public class StudentStatsActivity extends AppCompatActivity {
 
                 presentNumber.addListenerForSingleValueEvent(attendancePercentage);
 
-/////////////////////////////////////////////////////////////////////////////////////////
                 ValueEventListener AttendanceRecord = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(int i=0; i<totalClasses.size(); i++){
+                        for (int i = 0; i < totalClasses.size(); i++) {
 
-
-                           allStudentsList.add( allNames.get(i) + ": \t" + percentage.get(i) + "%");
+                            allStudentsList.add(allNames.get(i) + ": \t" + percentage.get(i) + "%");
                             final ListView listView = findViewById(R.id.studentList);
                             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, allStudentsList);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                    android.R.layout.simple_list_item_1, allStudentsList);
                             listView.setAdapter(adapter);
 
                         }
@@ -205,7 +184,6 @@ public class StudentStatsActivity extends AppCompatActivity {
             }
 
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -216,20 +194,17 @@ public class StudentStatsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             selectedClass = null;
-        }
-
-        else {
+        } else {
             selectedClass = extras.getString("classSelected");
         }
-
 
 
         dbAllRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes").child(selectedClass).child("AllStudents");
         dbAllRef.addListenerForSingleValueEvent(eventListener);
 
-        }
-
-
     }
+
+
+}
 
 

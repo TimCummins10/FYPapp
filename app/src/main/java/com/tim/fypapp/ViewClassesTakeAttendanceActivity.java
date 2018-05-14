@@ -31,7 +31,6 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
     private DatabaseReference dbAllClasses = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes");
     private int check = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +45,8 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
                 }
 
                 Spinner allClasses = findViewById(R.id.allClasses2);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, allClassNames);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                        R.layout.support_simple_spinner_dropdown_item, allClassNames);
 
                 allClasses.setAdapter(adapter);
                 allClasses.setPrompt("Please Select A Class");
@@ -55,8 +55,9 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (++check > 1) {
                             Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-                            //String selectedClass = adapterView.getItemAtPosition(i).toString();
-                            dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
+
+                            dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes")
+                                    .child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
                             Intent selectedClass = new Intent(getApplicationContext(), TakeAttendanceActivity.class);
                             selectedClass.putExtra("classSelected", adapterView.getItemAtPosition(i).toString());
                             startActivity(selectedClass);
@@ -64,10 +65,10 @@ public class ViewClassesTakeAttendanceActivity extends AppCompatActivity {
                     }
 
                     @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
+                    public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+                    }
+                });
 
             }
 

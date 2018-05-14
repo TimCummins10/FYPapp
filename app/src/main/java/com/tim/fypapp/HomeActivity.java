@@ -30,22 +30,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private int check = 0;
     private ArrayList<String> userInfo = new ArrayList<String>();
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
         database = FirebaseDatabase.getInstance();
         users = database.getReference().child("fullName");
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
         findViewById(R.id.takeAttendance).setOnClickListener(this);
         findViewById(R.id.viewAllClasses).setOnClickListener(this);
@@ -55,12 +47,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.viewStats).setOnClickListener(this);
 
 
-        }
+    }
 
-
-
-
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();

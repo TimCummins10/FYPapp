@@ -24,7 +24,6 @@ public class AddNewClassActivity extends AppCompatActivity implements View.OnCli
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference dbRef;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +37,6 @@ public class AddNewClassActivity extends AppCompatActivity implements View.OnCli
         dbRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes");
 
         findViewById(R.id.addClassButton).setOnClickListener(this);
-
 
     }
 
@@ -65,15 +63,14 @@ public class AddNewClassActivity extends AppCompatActivity implements View.OnCli
 
 
     private void addNewClass() {
+
         String newClass = etAddClass.getText().toString().trim();
 
         if (newClass.isEmpty()) {
-            etAddClass.setError("Please fill in a student you would like to add.");
+            etAddClass.setError("Please fill in a class you would like to add.");
             etAddClass.requestFocus();
             return;
         }
-
-        //dbRef.child(newClass).push().setValue(newClass);
         dbRef.child(newClass).child("AllStudents").setValue("Currently No Students");
         Toast.makeText(getApplicationContext(), "New Class Added!", Toast.LENGTH_LONG).show();
 

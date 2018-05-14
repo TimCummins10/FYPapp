@@ -31,8 +31,6 @@ public class ViewClassesStudentStatsActivity extends AppCompatActivity {
     private DatabaseReference dbAllClasses = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid()).child("Classes");
     private int check = 0;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -68,7 +68,6 @@ public class ViewClassesActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

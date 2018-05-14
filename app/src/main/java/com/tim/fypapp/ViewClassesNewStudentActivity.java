@@ -56,7 +56,6 @@ public class ViewClassesNewStudentActivity extends AppCompatActivity {
                         if (++check > 1) {
 
                             Toast.makeText(adapterView.getContext(), adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-                            //String selectedClass = adapterView.getItemAtPosition(i).toString();
                             dbRefTEST = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Classes").child(adapterView.getItemAtPosition(i).toString()).child("AllStudents");
                             Intent selectedClass = new Intent(getApplicationContext(), AddStudentToClassActivity.class);
                             selectedClass.putExtra("classSelected", adapterView.getItemAtPosition(i).toString());
